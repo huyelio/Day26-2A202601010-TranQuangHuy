@@ -10,7 +10,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from lab_utils.env_setup import load_lab_env, require_api_key
+from lab_utils.env_setup import get_lab_model, load_lab_env, require_api_key
 
 load_lab_env()
 require_api_key()
@@ -64,7 +64,7 @@ def synthesize_report(findings: str, audience: str = "technical") -> dict:
 
 root_agent = Agent(
     name="synthesis_agent",
-    model="gemini-2.5-flash",
+    model=get_lab_model(),
     description="Tổng hợp kết quả nghiên cứu thành báo cáo cuối có cấu trúc.",
     instruction=(
         "Bạn là chuyên gia tổng hợp báo cáo nghiên cứu. "

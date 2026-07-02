@@ -1,6 +1,6 @@
 # Ngày 26 — Hạ Tầng MCP/A2A & Agentic Routing
 
-Lab sinh viên cho **AICB-P2T2 Tuần 6**, xây trên **Google ADK**.
+Lab sinh viên cho **AICB-P2T2 Tuần 6**, xây trên **Google ADK** và dùng OpenAI qua LiteLLM.
 
 ## Bắt đầu nhanh
 
@@ -13,10 +13,12 @@ conda activate pii-env
 
 cd Day26-MCP_A2A_Infrastructure
 pip install -r requirements.txt
-cp .env.example .env   # thêm GOOGLE_API_KEY
+cp .env.example .env   # thêm OPENAI_API_KEY
 export PYTHONPATH=$PWD
 jupyter notebook day26_mcp_a2a_lab.ipynb
 ```
+
+Model mặc định là `openai/gpt-5.4-nano`. Có thể đổi bằng biến `OPENAI_MODEL` trong `.env`.
 
 > **Lưu ý `cryptography`:** Lab ghim `cryptography>=46.0.7,<47.0.0` để tương thích với `agent-governance-toolkit-core`. Nếu bạn dùng `presidio-anonymizer` bản cũ (2.2.360), hãy nâng cấp: `pip install -U "presidio-anonymizer>=2.2.363"`. Chạy lab trong conda env riêng (`pii-env`) để tránh xung đột package với base Anaconda.
 

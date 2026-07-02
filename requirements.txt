@@ -9,3 +9,4 @@ ipykernel>=6.29.0
 
 # Ghim cryptography để tránh xung đột với agent-governance-toolkit-core / presidio-anonymizer
 cryptography>=46.0.7,<47.0.0
+litellm!=1.82.7,!=1.82.8

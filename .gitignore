@@ -159,6 +159,9 @@ ENV/
 env.bak/
 venv.bak/
 
+# Local installers (không thuộc source code của lab)
+Miniconda3-latest-*.sh
+
 # Spyder project settings
 .spyderproject
 .spyproject

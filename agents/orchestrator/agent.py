@@ -9,14 +9,13 @@ from google.adk.agents import Agent
 from google.adk.agents.remote_a2a_agent import RemoteA2aAgent
 from google.adk.tools.mcp_tool import StdioConnectionParams
 from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
-from google.genai import types
 from mcp import StdioServerParameters
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from lab_utils.env_setup import load_lab_env, require_api_key
+from lab_utils.env_setup import get_lab_model, load_lab_env, require_api_key
 
 load_lab_env()
 require_api_key()
@@ -101,11 +100,8 @@ mcp_tools = McpToolset(
 
 root_agent = Agent(
     name="orchestrator",
-    model="gemini-2.5-flash",
+    model=get_lab_model(),
     description="Điều phối nghiên cứu bằng cách ủy quyền cho search, database và synthesis specialist.",
-    generate_content_config=types.GenerateContentConfig(
-        thinking_config=types.ThinkingConfig(thinking_budget=0),
-    ),
     instruction="""Bạn là orchestrator nghiên cứu cho hệ multi-agent.
 
 QUAN TRỌNG — luôn làm theo thứ tự:
@@ -116,7 +112,7 @@ Quy tắc định tuyến:
 - Tra cứu web / tài liệu → transfer_to_agent(agent_name="search_agent")
 - Metrics / SQL → transfer_to_agent(agent_name="database_agent")
 - Tổng hợp báo cáo cuối → transfer_to_agent(agent_name="synthesis_agent")
-- MCP local: search_documents, sql_query, summarize_text (khi không cần A2A)
+- MCP local: search_documents, sql_query, summarize_text, count_words (khi không cần A2A)
 - suggest_routing: chỉ khi không chắc chọn agent nào
 
 Ví dụ: user nói "Chuyển sang search_agent..." →

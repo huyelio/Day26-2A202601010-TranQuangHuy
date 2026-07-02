@@ -5,18 +5,19 @@ load_dotenv_file() {
   local root="$1"
   local env_file="$root/.env"
   if [[ ! -f "$env_file" ]]; then
-    echo "⚠ Không tìm thấy $env_file — GOOGLE_API_KEY có thể thiếu"
+    echo "⚠ Không tìm thấy $env_file — OPENAI_API_KEY có thể thiếu"
     return 0
   fi
   set -a
   # shellcheck disable=SC1090
   source "$env_file"
   set +a
-  export GOOGLE_GENAI_USE_VERTEXAI="${GOOGLE_GENAI_USE_VERTEXAI:-FALSE}"
-  if [[ -z "${GOOGLE_API_KEY:-}" ]]; then
-    echo "⚠ GOOGLE_API_KEY trống trong .env"
+  export OPENAI_MODEL="${OPENAI_MODEL:-openai/gpt-5.4-nano}"
+  export PYTHONUTF8="${PYTHONUTF8:-1}"
+  if [[ -z "${OPENAI_API_KEY:-}" ]]; then
+    echo "⚠ OPENAI_API_KEY trống trong .env"
   else
-    echo "→ .env loaded (GOOGLE_API_KEY set)"
+    echo "→ .env loaded (OPENAI_API_KEY set, model: $OPENAI_MODEL)"
   fi
 }
 
